@@ -1,0 +1,16 @@
+name: 'Setup MVST mobile CI'
+description: 'Sets up tools on MVST runner'
+inputs:
+  node-version:
+    description: 'Node version'
+    default: 16
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+    - run: yarn --version || npm install -g yarn
+      shell: bash
+    - run: yarn config set -- --mutex network
+      shell: bash
